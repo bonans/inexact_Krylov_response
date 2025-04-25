@@ -1,0 +1,5 @@
+# Ignore .CondaPkg directory
+/.CondaPkg/
+# Ignore all .jld2 and .log files in all directories
+**/*.jld2
+**/*.log
