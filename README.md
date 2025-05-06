@@ -1,14 +1,14 @@
 # Inexact Krylov methods for response calculations in density functional theory
 
-[![][doi-badge]]([doi-link])
-[![][arxiv-badge]]([arxiv-link])
-[![][code-badge]]([code-link])
+[![][doi-badge]][doi-link]
+[![][arxiv-badge]][arxiv-link]
+[![][code-badge]][code-link]
 
-[doi-badge]: https://img.shields.io/badge/DOI-10.48550/arXiv.xxxx.xxxxx-blue
-[doi-link]: https://doi.org/10.48550/arXiv.xxxx.xxxxx
+[doi-badge]: https://img.shields.io/badge/DOI-10.48550/arXiv.2505.02319-blue
+[doi-link]: https://doi.org/10.48550/arXiv.2505.02319
 
-[arxiv-badge]: https://img.shields.io/badge/arxiv-xxxx.xxxxx-red
-[arxiv-link]: https://arxiv.org/abs/xxxx.xxxxx
+[arxiv-badge]: https://img.shields.io/badge/arxiv-2505.02319-red
+[arxiv-link]: https://arxiv.org/abs/2505.02319
 
 [code-badge]: https://img.shields.io/badge/Julia-v1.10.3-blue.svg?logo=julia
 [code-link]: https://julialang.org/downloads/
@@ -17,7 +17,7 @@ This repository contains the code to reproduce the results of the following pape
 
 Michael F. Herbst and Bonan Sun  
 *Efficient Krylov methods for linear response in plane-wave electronic structure calculations*  
-arXiv prerint, [arXiv:xxxx.xxxxx]([arxiv-link]), 2025, https://doi.org/10.48550/arXiv.xxxx.xxxxx
+arXiv prerint, [arXiv:2505.02319]([arxiv-link]), 2025, https://doi.org/10.48550/arXiv.2505.02319
 
 ## Organization
 
@@ -70,7 +70,7 @@ to see if everything is working. It should create a directory `repeat3/` under `
 ## Reproducing the results in the paper
 
 ### Generating the tables and figures in the paper
-The tables and figures in the paper can be generated from saved results in `Al40/data_logs/Al_extracted.jld2` and `Fe2MnAl/data_logs/Fe2MnAl_extracted.jld2`. 
+Note that generating figures requires LaTeX to be installed on your system. The tables and figures in the paper can be generated from saved results in `Al40/data_logs/Al_extracted.jld2` and `Fe2MnAl/data_logs/Fe2MnAl_extracted.jld2`. 
 Run
 ```julia
 include("Al40/GeneratePlots.jl"); include("Al40/GenerateTables.jl")
@@ -99,19 +99,15 @@ For the Silicon system, run
 ```julia
 include("silicon/test.jl"); include("silicon/GetTable.jl")
 ```
-to reproduce the Tab. 4 in the paper from scratch. It will take 2~3 hours on a modern laptop.
+to reproduce the Tab. 4 in the paper from scratch. It will take **2~3 hours** on a modern laptop.
 
 ### Reproducing the results
 
 To rerun the calculations for the metallic systems, let's take the Heusler alloy as an example. First run 
 ```julia
-include("Fe2MnAl/Fe2MnAl.jl")
+include("Fe2MnAl/Fe2MnAl.jl"); setup_model(debug)
 ``` 
-to import procedures and functions. Then run 
-```julia
-setup_model(debug)
-```
-to run the self-consistent field (SCF) calculation to set up the model, either in debugging mode (`debug="debug"`) or in production mode (`debug="full"`), where the former uses a small cutoff and the latter uses the same parameters as in the paper. After the SCF, the response calculation can be run with
+to import procedures and functions, and to run the self-consistent field (SCF) calculation to set up the model, either in debugging mode (`debug="debug"`) or in production mode (`debug="full"`), where the former uses a small cutoff and the latter uses the same parameters as in the paper. After the SCF, the response calculation can be run with
 ```julia
 run_gmres(; debug, restart, tol, adaptive, CG_tol_scale_choice, precon)
 ```
