@@ -56,7 +56,7 @@ Then run the following command in the Julia REPL activated above to install the 
 using Pkg
 Pkg.instantiate()
 ```
-This will install all the required packages. Notably it will install **not** the main distribution of [DFTK](https://dftk.org), but [a branch of my fork]([dftk-reproduce-fork]). Though the methods proposed in the paper will be incorporated in the main distribution of DFTK in the future, this repository is meant to be self-contained and reproducible. This code may not work with the main distribution of DFTK.
+This will install all the required packages. Notably it will install **not** the main distribution of [DFTK](https://dftk.org), but [a branch of my fork](https://github.com/bonans/DFTK.jl/tree/reproduce-paper). Though the methods proposed in the paper will be incorporated in the main distribution of DFTK in the future, this repository is meant to be self-contained and reproducible. This code may not work with the main distribution of DFTK.
 
 [dftk-reproduce-fork]: https://github.com/bonans/DFTK.jl/tree/reproduce-paper
 
