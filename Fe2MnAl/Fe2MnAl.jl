@@ -8,7 +8,7 @@ using Dates
 using ForwardDiff
 
 disable_threading()
-save_to_dir = "metals/Fe2MnAl/data_logs/"
+save_to_dir = "Fe2MnAl/data_logs/"
 
 function setup_model(; rattle_intensity=1.0, Ecut=45, kgrid=(13, 13, 13), temperature=0.01, tol=1e-12, debug=false)
     model_specs = (; rattle_intensity=rattle_intensity,
@@ -21,7 +21,7 @@ function setup_model(; rattle_intensity=1.0, Ecut=45, kgrid=(13, 13, 13), temper
     smearing = Smearing.Gaussian()
     magnetic_moments = [5.0, 0.0, 5.0, 5.0]
 
-    system = ase.io.read("metals/Fe2MnAl/AlFe2Mn_qe.in")
+    system = ase.io.read("Fe2MnAl/AlFe2Mn_qe.in")
     system = pyconvert(AbstractSystem, system)
     system = attach_psp(system; Mn="hgh/pbe/mn-q15.hgh",
         Fe="hgh/pbe/fe-q16.hgh",
@@ -153,7 +153,7 @@ function load_model(; tol=1e-12, debug=false)
     smearing = Smearing.Gaussian()
     magnetic_moments = [5.0, 0.0, 5.0, 5.0]
 
-    system = ase.io.read("metals/Fe2MnAl/AlFe2Mn_qe.in")
+    system = ase.io.read("Fe2MnAl/AlFe2Mn_qe.in")
     system = pyconvert(AbstractSystem, system)
     system = attach_psp(system; Mn="hgh/pbe/mn-q15.hgh",
         Fe="hgh/pbe/fe-q16.hgh",

@@ -9,7 +9,7 @@ using ASEconvert
 using PrettyTables
 results = load("Fe2MnAl/data_logs/Fe2MnAl_extracted.jld2")
 
-load_from_dir = "metals/Fe2MnAl/data_logs/"
+load_from_dir = "Fe2MnAl/data_logs/"
 restart_list = [5, 10, 20]
 tol_list = [1e-6, 1e-9, 1e-12]
 normδρ0 = 4709.452671852897

@@ -1,0 +1,48 @@
+&CONTROL
+  calculation = 'scf'
+  etot_conv_thr =   4.0000000000d-05
+  forc_conv_thr =   1.0000000000d-04
+  max_seconds =   1.7100000000d+04
+  outdir = './out/'
+  prefix = 'aiida'
+  pseudo_dir = './pseudo/'
+  restart_mode = 'from_scratch'
+  tprnfor = .true.
+  tstress = .true.
+  verbosity = 'high'
+/
+&SYSTEM
+  degauss =   1.0000000000d-02
+  ecutrho =   1.0800000000d+03
+  ecutwfc =   9.0000000000d+01
+  ibrav = 0
+  nat = 4
+  nosym = .false.
+  nspin = 2
+  ntyp = 3
+  occupations = 'smearing'
+  smearing = 'cold'
+  starting_magnetization(1) =   0.0000000000d+00
+  starting_magnetization(2) =   3.1250000000d-01
+  starting_magnetization(3) =   3.3333333333d-01
+/
+&ELECTRONS
+  conv_thr =   8.0000000000d-10
+  electron_maxstep = 160
+  mixing_beta =   4.0000000000d-01
+/
+ATOMIC_SPECIES
+Al     26.981538 Al.pbe-n-kjpaw_psl.1.0.0.UPF
+Fe     55.845 Fe.pbe-spn-kjpaw_psl.0.2.1.UPF
+Mn     54.938045 mn_pbe_v1.5.uspp.F.UPF
+ATOMIC_POSITIONS angstrom
+Mn           2.9150000000       0.0000000000       0.0000000000
+Al           0.0000000000       0.0000000000       0.0000000000
+Fe           1.4575000000       1.4575000000       4.3725000000
+Fe           1.4575000000       4.3725000000       4.3725000000
+K_POINTS automatic
+13 13 13 0 0 0
+CELL_PARAMETERS angstrom
+      0.0000000000       2.9150000000       2.9150000000
+      2.9150000000       0.0000000000       2.9150000000
+      2.9150000000       2.9150000000       0.0000000000

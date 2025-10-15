@@ -35,31 +35,31 @@ colors = palette(cgrad(:roma), 6)#["#1f77b4", "#2ca02c", "#17becf", "#ff7f0e", "
 
 colors = [palette(:tab10)[1], palette(:tab10)[3], palette(:tab10)[10], palette(:tab10)[4], palette(:tab10)[7], palette(:tab10)[2]]
 
-CG_err_res_Al = load("Fe2MnAl/data_logs/CG_err_res_2_58.jld2")
-CG_err_res_H = load("Fe2MnAl/data_logs/CG_err_res_732_26_H.jld2")
+# CG_err_res_Al = load("Fe2MnAl/data_logs/CG_err_res_2_58.jld2")
+# CG_err_res_H = load("Fe2MnAl/data_logs/CG_err_res_732_26_H.jld2")
 
-fig1 = plot()
-plot!(fig1, CG_err_res_Al["residuals"],lw=lw_true, color=colors[1])
-plot!(fig1, CG_err_res_Al["errors"],lw=lw_true, color=colors[4])
-plot!(fig1, CG_err_res_Al["residuals_bound"],lw=lw_true, color=colors[2])
-plot!(fig1, yscale=:log10, yticks=10.0 .^ (Vector(-16:2:0)), 
-xtickfont=font(14, "times"), ytickfont=font(14, "times"),dpi=300, margin=0Plots.mm,legend=false)
-annotate!(fig1, 23, 5e-2, Plots.text("(A)", "times", 16), :black)
-fig2 = plot()
-plot!(fig2, CG_err_res_H["residuals"], label=L"\| \textbf{r}_k \|",lw=lw_true, color=colors[1])
-plot!(fig2, CG_err_res_H["errors"], label=L"\| \textbf{x}_k - \textbf{x}_\star \|",lw=lw_true, color=colors[4])
-plot!(fig2, CG_err_res_H["residuals_bound"], label=L"\| \textbf{r}_k \|/(\epsilon_{N_{\mathrm{occ}+1}} - \epsilon_{N_{\mathrm{occ}}})",lw=lw_true, color=colors[2])
-plot!(fig2, yscale=:log10, yticks=10.0 .^ (Vector(-16:2:0)),
-xtickfont=font(14, "times"), ytickfont=font(14, "times"),dpi=300, 
-margin=0Plots.mm,legend=:topright, legendfont=font(12, "times"))
-annotate!(fig2, 23.5, 2e1, Plots.text("(B)", "times", 16), :black)
-l = @layout [a b]
-fig = plot(fig1, fig2, layout=l, size=(945, 405), dpi=300, 
-left_margin=6Plots.mm, bottom_margin=7Plots.mm, top_margin=5Plots.mm)
-savefig(fig, save_to_dir * "CG_err_res.svg")
+# fig1 = plot()
+# plot!(fig1, CG_err_res_Al["residuals"],lw=lw_true, color=colors[1])
+# plot!(fig1, CG_err_res_Al["errors"],lw=lw_true, color=colors[4])
+# plot!(fig1, CG_err_res_Al["residuals_bound"],lw=lw_true, color=colors[2])
+# plot!(fig1, yscale=:log10, yticks=10.0 .^ (Vector(-16:2:0)), 
+# xtickfont=font(14, "times"), ytickfont=font(14, "times"),dpi=300, margin=0Plots.mm,legend=false)
+# annotate!(fig1, 23, 5e-2, Plots.text("(A)", "times", 16), :black)
+# fig2 = plot()
+# plot!(fig2, CG_err_res_H["residuals"], label=L"\| \textbf{r}_k \|",lw=lw_true, color=colors[1])
+# plot!(fig2, CG_err_res_H["errors"], label=L"\| \textbf{x}_k - \textbf{x}_\star \|",lw=lw_true, color=colors[4])
+# plot!(fig2, CG_err_res_H["residuals_bound"], label=L"\| \textbf{r}_k \|/(\epsilon_{N_{\mathrm{occ}+1}} - \epsilon_{N_{\mathrm{occ}}})",lw=lw_true, color=colors[2])
+# plot!(fig2, yscale=:log10, yticks=10.0 .^ (Vector(-16:2:0)),
+# xtickfont=font(14, "times"), ytickfont=font(14, "times"),dpi=300, 
+# margin=0Plots.mm,legend=:topright, legendfont=font(12, "times"))
+# annotate!(fig2, 23.5, 2e1, Plots.text("(B)", "times", 16), :black)
+# l = @layout [a b]
+# fig = plot(fig1, fig2, layout=l, size=(945, 405), dpi=300, 
+# left_margin=6Plots.mm, bottom_margin=7Plots.mm, top_margin=5Plots.mm)
+# savefig(fig, save_to_dir * "CG_err_res.svg")
 
 
-load_from_dir = "metals/Fe2MnAl/data_logs/"
+load_from_dir = "Fe2MnAl/data_logs/"
 restart_list = [5, 10, 20]
 tol_list = [1e-6, 1e-9, 1e-12]
 normδρ0 = 4709.452671852897
