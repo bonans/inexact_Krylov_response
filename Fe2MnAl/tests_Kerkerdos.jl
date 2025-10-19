@@ -17,12 +17,15 @@ latexstring("\\texttt{Pgrt}"), latexstring("\\texttt{PD10}"),
 latexstring("\\texttt{PD100}"), latexstring("\\texttt{PD10n}")]
 colors = [palette(:tab10)[1], palette(:tab10)[3], palette(:tab10)[10], palette(:tab10)[4], palette(:tab10)[7], palette(:tab10)[2]]
 
-save_to_dir = "Fe2MnAl/figures/"
-if !isdir(save_to_dir)
-    mkdir(save_to_dir)
+figure_dir = "Fe2MnAl/figures/"
+if !isdir(figure_dir)
+    mkdir(figure_dir)
 end
-ρ, ψ, ham, basis, occupation, εF, eigenvalues, δρ0 = load_model(debug=debug)
-normδρ0 = norm(δρ0)
+scf_logfile = save_to_dir * (debug ? "00debug_" : "") * "log_scf_PDos.log"
+lines = readlines(scf_logfile)
+idx = findfirst(line -> occursin("Saving model", line), lines)
+normδρ0 = parse(Float64, strip(split(lines[idx - 1], "=")[end]))
+
 results_all = load("Fe2MnAl/data_logs/" * (debug ? "00debug_" : "") * "results_Phdmd_10_-9_PDos.jld2")
 first_nonzero = findfirst(x -> x > 0, results_all["res"])
 results_all["res"][1:first_nonzero-1] = results_all["res_tilde"][1:first_nonzero-1]
@@ -49,7 +52,7 @@ plot!(fig1, yscale=:log10, yticks=10.0 .^ (Vector(-14:2:ceil(log10(normδρ0))))
     xtickfont=font(14, "times"), ytickfont=font(14, "times"),
     size=(945, 405), dpi=300, margin=0Plots.mm, legend=:topright, legendfont=font(12, "times"),
     xlims=(1, max_xaxis+2),bottom_margin=1Plots.mm,ylims=(1e-10,1e3))
-savefig(fig1, save_to_dir * "Hconvergence_10_-9_PDos.svg")
+savefig(fig1, figure_dir * "Hconvergence_10_-9_PDos.svg")
 
 # Summary table: res_end, CG_iter, Rel efficiency (D100 baseline = 1.0)
 rel_eff_D100 = 1.0
