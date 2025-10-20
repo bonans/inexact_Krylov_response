@@ -218,6 +218,9 @@ function setup_model(debug::String)
     end
 end
 
+function UseScfTemperature()
+    callback(temperature; info...) = temperature
+end
 
 function run_gmres(; debug=false, restart=20, tol=1e-12, adaptive=true, CG_tol_scale_choice="agr", precon=false)
     save_to_dir_new = save_to_dir * (debug ? "00debug_" : "")
@@ -225,7 +228,7 @@ function run_gmres(; debug=false, restart=20, tol=1e-12, adaptive=true, CG_tol_s
                     * string(restart) * "_" * string(Int(log10(tol))))
 
     ρ, ψ, ham, basis, occupation, εF, eigenvalues, δρ0 = load_model(debug=debug)
-    mixing = KerkerDosMixing()
+    mixing = KerkerDosMixing(; adjust_temperature=UseScfTemperature())
     # Define some helper functions and variables
     pack(δρ) = vec(δρ)
     unpack(δρ) = reshape(δρ, size(ρ))
@@ -355,7 +358,7 @@ function run_gmres(; debug=false, restart=20, tol=1e-12, adaptive=true, CG_tol_s
             #println("ave CG iters = ", sum(reduce(vcat, CG_niters)) / Nocc)
             
             if precon
-                return pack(DFTK.mix_density(mixing, basis, δρ - χ0δV; εF, eigenvalues, n_iter=0))
+                return pack(DFTK.mix_density(mixing, basis, δρ - χ0δV; εF, eigenvalues))
             else
                 return pack(δρ - χ0δV)
             end
@@ -393,7 +396,7 @@ function run_gmres(; debug=false, restart=20, tol=1e-12, adaptive=true, CG_tol_s
             println("----- running GMRES: tol=", tol, ", restart=", restart, ", adaptive=", adaptive, ", CG_tol_scale_choice=", CG_tol_scale_choice, " -----")
             Pδρ0 = δρ0
             if precon
-                Pδρ0 = DFTK.mix_density(mixing, basis, δρ0; εF, eigenvalues, n_iter=0)
+                Pδρ0 = DFTK.mix_density(mixing, basis, δρ0; εF, eigenvalues)
             end
             println("||Pδρ0|| = ", norm(Pδρ0))
             DFTK.reset_timer!(DFTK.timer)
