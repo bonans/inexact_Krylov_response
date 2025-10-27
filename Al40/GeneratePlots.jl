@@ -91,7 +91,7 @@ end
 
 fig1 = plot()
 hline!(fig1, [tol], label=latexstring("\\tau = 10^{" * string(Int(log10(tol))) * "}"), lw=lw_true, color=:black, ls=:dash)
-jj = 1
+global jj = 1
 
 plot!(fig1, x=1:1, 1e-20 * ones(1), label=latexstring("\\texttt{D10}\\ \\Vert \\mathbf{r}_i \\Vert"), 
     lw=lw_true, color=1, markershape=markers[4], markersize=6)
@@ -102,7 +102,7 @@ plot!(fig1, x=1:1, 1e-20 * ones(1), label=latexstring("\\texttt{D100}\\ \\Vert \
 plot!(fig1, x=1:1, 1e-20 * ones(1), label=latexstring("\\texttt{D100}\\ \\Vert \\tilde{\\mathbf{r}}_i \\Vert"),
     lw=4, color=2, ls=:dash, opacity=op_tilde)
 
-jj = 1
+global jj = 1
 for Pindex in 1:1
     for (i, strategy) in enumerate(strategies)
         # if i < 4 then continue end
@@ -124,7 +124,7 @@ for Pindex in 1:1
             plot!(fig1, results["res"], 
             lw=lw_true, color=jj, label = "", markershape=markers[i], markersize=6)
             plot!(fig1, results["res_tilde"], lw=4, color=jj, ls=:dash, opacity=op_tilde, label="")
-            jj += 1
+            global jj += 1
         end
     end
 end
