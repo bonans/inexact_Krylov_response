@@ -17,7 +17,7 @@ function setup_model(; rattle_intensity=1.0, Ecut=45, kgrid=(13, 13, 13), temper
         temperature=temperature)
 
     println("------ Setting up model ... ------")
-    mixing = KerkerDosMixing()
+    mixing = KerkerMixing()
     smearing = Smearing.Gaussian()
     magnetic_moments = [5.0, 0.0, 5.0, 5.0]
 
@@ -149,7 +149,7 @@ end
 function load_model(; tol=1e-12, debug=false)
     load_from_file = save_to_dir * (debug ? "00debug_" : "") * "scf_PDos.jld2"
     model_specs, ρ, ψ, δρ0 = load(load_from_file, "model_specs", "ρ", "ψ", "δρ0_1")
-    mixing = KerkerDosMixing()
+    mixing = KerkerMixing()
     smearing = Smearing.Gaussian()
     magnetic_moments = [5.0, 0.0, 5.0, 5.0]
 
@@ -228,7 +228,7 @@ function run_gmres(; debug=false, restart=20, tol=1e-12, adaptive=true, CG_tol_s
                     * string(restart) * "_" * string(Int(log10(tol))))
 
     ρ, ψ, ham, basis, occupation, εF, eigenvalues, δρ0 = load_model(debug=debug)
-    mixing = KerkerDosMixing(; adjust_temperature=UseScfTemperature())
+    mixing = KerkerMixing(; kTF=0.8, ΔDOS_Ω=(0.8)^2/4π)
     # Define some helper functions and variables
     pack(δρ) = vec(δρ)
     unpack(δρ) = reshape(δρ, size(ρ))
